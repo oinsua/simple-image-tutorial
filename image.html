@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editorjs</title>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="image.js"></script>
+    <link href="image.css" rel="stylesheet"/>
+</head>
+<body>
+
+    <div id="editorjs" class="editor-div"></div>
+
+    <button id="save-button">Save</button>
+    <pre id="output"></pre>
+
+    <script>
+        const editor = new EditorJS({
+        autofocus: true,
+        tools: {
+            image: {
+                    class: ImageTool,
+                    inlineToolbar: true,
+                    config: {
+                      placeholder: 'Paste image URL'
+                    },
+                    }
+        },
+        data: {
+            time: 1654098537455,
+            blocks: [
+                {
+                    type: "image",
+                    data: {
+                        url: "E:\\project\\content-ssr\\src\\client\\img\\common\\product_logo_placeholder.png",
+                        caption: "Here is a caption field",
+                    }
+                }
+            ],
+            version: "2.24.3"
+        }
+        });
+        const saveButton = document.getElementById('save-button');
+        const output = document.getElementById('output');
+
+        saveButton.addEventListener('click', () => {
+        editor.save().then( savedData => {
+            output.innerHTML = JSON.stringify(savedData, null, 4);
+        })
+        })
+    </script>
+
+</body>
+</html>
